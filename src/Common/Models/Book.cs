@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace LibraryApi.Models
+namespace Common.Models
 {
     public class Book
     {
@@ -12,5 +12,6 @@ namespace LibraryApi.Models
         public string Title { get; set; }
         public DateTime PublicationDate { get; set; }
         public Author Author { get; set; }
+        public decimal Price { get; set; }
     }
 }

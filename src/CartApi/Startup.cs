@@ -1,13 +1,19 @@
-﻿using LibraryApi.Data;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using CartApi.Data;
 
-namespace LibraryApi
+namespace CartApi
 {
     public class Startup
     {
@@ -28,11 +34,11 @@ namespace LibraryApi
                 );
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "LibraryApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CartApi", Version = "v1" });
             });
 
-            services.AddDbContext<LibraryApiContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("LibraryApiContext")));
+            services.AddDbContext<CartApiContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("CartApiContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +48,7 @@ namespace LibraryApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LibraryApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CartApi v1"));
             }
 
             app.UseRouting();

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace LibraryApi.Models
+namespace Common.Models
 {
     public class Author
     {
