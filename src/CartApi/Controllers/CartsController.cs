@@ -35,7 +35,7 @@ namespace CartApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Cart>> GetCart(int id)
         {
-            var cart = await _context.Cart.FindAsync(id);
+            var cart = await _context.Cart.Include(c => c.Articles).FirstOrDefaultAsync(c => c.Id == id);
 
             if (cart == null)
             {
@@ -85,16 +85,11 @@ namespace CartApi.Controllers
             Cart newCart = new Cart();
             foreach (var article in cart.Articles)
             {
-                var book = await bookService.GetBookAsync(article.Book.Id);
-                book.Author = null;
-                newCart.Articles.Add(new Article { Book = book, Quantity = article.Quantity });
+                var book = await bookService.GetBookAsync(article.BookId);
+                newCart.Articles.Add(new Article { BookId = book.Id, Quantity = article.Quantity });
                 totalPrice += article.Quantity * book.Price;
             }
             newCart.TotalPrice = totalPrice;
-            foreach (var article in newCart.Articles)
-            {
-                _context.Entry(article.Book).State = EntityState.Unchanged;
-            }
             _context.Cart.Add(newCart);
             await _context.SaveChangesAsync();
 

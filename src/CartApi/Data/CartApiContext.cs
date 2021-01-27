@@ -19,8 +19,8 @@ namespace CartApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(5, 2);
-            modelBuilder.Entity<Cart>().Property(b => b.TotalPrice).HasPrecision(5, 2);
+            modelBuilder.Entity<Cart>().Property(c => c.TotalPrice).HasPrecision(5, 2);
+            modelBuilder.Entity<Article>().Property(a => a.BookId);
 
             base.OnModelCreating(modelBuilder);
         }

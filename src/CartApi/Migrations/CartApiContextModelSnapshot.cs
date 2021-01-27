@@ -37,8 +37,6 @@ namespace CartApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
                     b.HasIndex("CartId");
 
                     b.ToTable("Article");
@@ -60,85 +58,18 @@ namespace CartApi.Migrations
                     b.ToTable("Cart");
                 });
 
-            modelBuilder.Entity("Common.Models.Author", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Firstname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Lastname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Author");
-                });
-
-            modelBuilder.Entity("Common.Models.Book", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasPrecision(5, 2)
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<DateTime>("PublicationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("Book");
-                });
-
             modelBuilder.Entity("CartApi.Models.Article", b =>
                 {
-                    b.HasOne("Common.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CartApi.Models.Cart", "Cart")
                         .WithMany("Articles")
                         .HasForeignKey("CartId");
 
-                    b.Navigation("Book");
-
                     b.Navigation("Cart");
-                });
-
-            modelBuilder.Entity("Common.Models.Book", b =>
-                {
-                    b.HasOne("Common.Models.Author", "Author")
-                        .WithMany("Books")
-                        .HasForeignKey("AuthorId");
-
-                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("CartApi.Models.Cart", b =>
                 {
                     b.Navigation("Articles");
-                });
-
-            modelBuilder.Entity("Common.Models.Author", b =>
-                {
-                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

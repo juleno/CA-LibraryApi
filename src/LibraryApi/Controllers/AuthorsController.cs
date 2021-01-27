@@ -30,7 +30,7 @@ namespace LibraryApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Author>> GetAuthor(int id)
         {
-            var author = await _context.Author.Include(a => a.Books).Where(a => a.Id == id).FirstOrDefaultAsync();
+            var author = await _context.Author.Include(a => a.Books).FirstOrDefaultAsync(a => a.Id == id);
 
             if (author == null)
             {
