@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartApi", "CartApi\CartApi.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{EE6C3AD4-3955-40B6-8352-DB6FAEFD3945}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontLibrary", "FrontLibrary\FrontLibrary.csproj", "{B14B0610-BB40-4FD6-A989-8985F09B2FCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EE6C3AD4-3955-40B6-8352-DB6FAEFD3945}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE6C3AD4-3955-40B6-8352-DB6FAEFD3945}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE6C3AD4-3955-40B6-8352-DB6FAEFD3945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B14B0610-BB40-4FD6-A989-8985F09B2FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B14B0610-BB40-4FD6-A989-8985F09B2FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B14B0610-BB40-4FD6-A989-8985F09B2FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B14B0610-BB40-4FD6-A989-8985F09B2FCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

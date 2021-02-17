@@ -14,15 +14,6 @@ namespace CartApi.Services
 {
     public class BookService
     {
-        public string BookApiUrl { get; set; }
-        public HttpClient Client { get; set; }
-
-        public BookService()
-        {
-            BookApiUrl = "http://localhost:58521/api/Books";
-            Client = new HttpClient();
-        }
-
         public async Task<decimal> GetBookPriceAsync(BookCommand bookCommand)
         {
             // get book stock
@@ -44,7 +35,5 @@ namespace CartApi.Services
                 }
             }
         }
-
-
     }
 }
