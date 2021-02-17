@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryApi", "LibraryApi\LibraryApi.csproj", "{8C1C8567-FCBB-4F88-BAB8-56B640728DA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartApi", "CartApi\CartApi.csproj", "{40B6D8D7-11A7-4853-B9EC-41CBEEFCA13B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartApi", "CartApi\CartApi.csproj", "{40B6D8D7-11A7-4853-B9EC-41CBEEFCA13B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{EE6C3AD4-3955-40B6-8352-DB6FAEFD3945}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{EE6C3AD4-3955-40B6-8352-DB6FAEFD3945}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

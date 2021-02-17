@@ -1,4 +1,5 @@
 ﻿using LibraryApi.Data;
+using LibraryApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,10 @@ namespace LibraryApi
             });
 
             services.AddDbContext<LibraryApiContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("LibraryApiContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("LibraryApiContext")),
+                    ServiceLifetime.Singleton);
+
+            services.AddSingleton<IHostedService, QueueListenerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,9 +1,12 @@
 ﻿using Common.Models;
+using NetMQ;
+using NetMQ.Sockets;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -20,14 +23,28 @@ namespace CartApi.Services
             Client = new HttpClient();
         }
 
-        public async Task<Book> GetBookAsync(int id)
+        public async Task<decimal> GetBookPriceAsync(BookCommand bookCommand)
         {
-            var result = Client.GetAsync(BookApiUrl + "/" + id);
-            HttpResponseMessage response = await Client.GetAsync(BookApiUrl + "/" + id);
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Book>(responseBody);
+            // get book stock
+            using (var client = new RequestSocket())
+            {
+                client.Connect("tcp://localhost:5555");
+                client.SendFrame(JsonConvert.SerializeObject(new Event { EventType = EventType.Stock, Content = bookCommand }));
+                var message = client.ReceiveFrameString();
+
+                // le stock est suffisant pour cette quantité
+                if (bool.Parse(message))
+                {
+                    client.SendFrame(JsonConvert.SerializeObject(new Event { EventType = EventType.Price, Content = bookCommand }));
+                    return decimal.Parse(client.ReceiveFrameString());
+                }
+                else
+                {
+                    throw new InvalidOperationException("Stock insuffisant");
+                }
+            }
         }
+
 
     }
 }

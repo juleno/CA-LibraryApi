@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CartApi.Data;
 using CartApi.Models;
 using CartApi.Services;
+using Common.Models;
 
 namespace CartApi.Controllers
 {
@@ -81,19 +82,16 @@ namespace CartApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Cart>> PostCart(Cart cart)
         {
-            decimal totalPrice = 0;
-            Cart newCart = new Cart();
             foreach (var article in cart.Articles)
             {
-                var book = await bookService.GetBookAsync(article.BookId);
-                newCart.Articles.Add(new Article { BookId = book.Id, Quantity = article.Quantity });
-                totalPrice += article.Quantity * book.Price;
+                var bookCommand = new BookCommand { BookId = article.BookId, Quantity = article.Quantity };
+                cart.TotalPrice += await bookService.GetBookPriceAsync(bookCommand);
             }
-            newCart.TotalPrice = totalPrice;
-            _context.Cart.Add(newCart);
+
+            _context.Cart.Add(cart);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCart", new { id = newCart.Id }, newCart);
+            return CreatedAtAction("GetCart", new { id = cart.Id }, cart);
         }
 
         // DELETE: api/Carts/5
