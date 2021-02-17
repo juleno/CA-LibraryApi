@@ -36,26 +36,25 @@ namespace LibraryApi.Services
                 if(responder.TryReceiveFrameString(out str))
                 {
                     Console.WriteLine("Received event");
-                    responder.SendFrame(ProcessEvent(JsonConvert.DeserializeObject<Event>(str)));
+                    responder.SendFrame(ProcessEvent(JsonConvert.DeserializeObject<Event<BookCommand>>(str)));
                 }
                 await Task.Delay(1000, stoppingToken);
             }
         }
 
-        private string ProcessEvent(Event evnt) 
+        private string ProcessEvent(Event<BookCommand> evnt) 
         {
             string result = "";
-            BookCommand command = evnt.Content;
-            var book = _context.Book.FirstOrDefault(b => b.Id == command.BookId);
+            var book = _context.Book.FirstOrDefault(b => b.Id == evnt.Content.BookId);
 
             switch (evnt.EventType)
             {
                 case EventType.Stock:
                     
-                    if (book.Stock - command.Quantity >= 0)
+                    if (book.Stock - evnt.Content.Quantity >= 0)
                     {
                         _context.Entry(book).State = EntityState.Modified;
-                        book.Stock -= command.Quantity;
+                        book.Stock -= evnt.Content.Quantity;
                         _context.SaveChangesAsync();
 
                         return "true";
@@ -65,7 +64,7 @@ namespace LibraryApi.Services
 
                 case EventType.Price:
 
-                    return (book.Price * command.Quantity).ToString();
+                    return (book.Price * evnt.Content.Quantity).ToString();
             }
 
             return result;

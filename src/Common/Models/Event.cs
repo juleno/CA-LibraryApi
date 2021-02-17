@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Common.Models
 {
-    public class Event
+    public class Event<T>
     {
         public EventType EventType { get; set; }
-        public BookCommand Content { get; set; }
+        public T Content { get; set; }
     }
 
     public enum EventType

@@ -82,16 +82,23 @@ namespace CartApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Cart>> PostCart(Cart cart)
         {
-            foreach (var article in cart.Articles)
+            try
             {
-                var bookCommand = new BookCommand { BookId = article.BookId, Quantity = article.Quantity };
-                cart.TotalPrice += await bookService.GetBookPriceAsync(bookCommand);
+                foreach (var article in cart.Articles)
+                {
+                    var bookCommand = new BookCommand { BookId = article.BookId, Quantity = article.Quantity };
+                    cart.TotalPrice += await bookService.GetBookPriceAsync(bookCommand);
+                }
+
+                _context.Cart.Add(cart);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetCart", new { id = cart.Id }, cart);
             }
-
-            _context.Cart.Add(cart);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCart", new { id = cart.Id }, cart);
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         // DELETE: api/Carts/5

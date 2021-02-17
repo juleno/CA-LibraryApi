@@ -29,13 +29,13 @@ namespace CartApi.Services
             using (var client = new RequestSocket())
             {
                 client.Connect("tcp://localhost:5555");
-                client.SendFrame(JsonConvert.SerializeObject(new Event { EventType = EventType.Stock, Content = bookCommand }));
+                client.SendFrame(JsonConvert.SerializeObject(new Event<BookCommand> { EventType = EventType.Stock, Content = bookCommand }));
                 var message = client.ReceiveFrameString();
 
                 // le stock est suffisant pour cette quantité
                 if (bool.Parse(message))
                 {
-                    client.SendFrame(JsonConvert.SerializeObject(new Event { EventType = EventType.Price, Content = bookCommand }));
+                    client.SendFrame(JsonConvert.SerializeObject(new Event<BookCommand> { EventType = EventType.Price, Content = bookCommand }));
                     return decimal.Parse(client.ReceiveFrameString());
                 }
                 else
