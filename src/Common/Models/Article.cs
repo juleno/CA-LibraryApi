@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
-namespace CartApi.Models
+namespace Common.Models
 {
     [DataContract]
     public class Article

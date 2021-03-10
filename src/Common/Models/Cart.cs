@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
-namespace CartApi.Models
+namespace Common.Models
 {
     [DataContract]
     public class Cart

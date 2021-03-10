@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CartApi.Data;
-using CartApi.Models;
 using CartApi.Services;
 using Common.Models;
 
@@ -80,7 +79,7 @@ namespace CartApi.Controllers
         // POST: api/Carts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Cart>> PostCart(Cart cart)
+        public async Task<ActionResult<Cart>> PostCart([FromBody]Cart cart)
         {
             try
             {
